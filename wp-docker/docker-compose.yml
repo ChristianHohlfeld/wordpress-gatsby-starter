@@ -3,6 +3,8 @@ version: "3.3"
 services:
   db:
     image: mysql:8
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -19,6 +21,8 @@ services:
     ports:
       - "8080:80"
     restart: always
+    volumes: 
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini 
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
